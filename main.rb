@@ -71,7 +71,7 @@ scheduler.every "1d" do
     links: mapped_links
   }.to_json
 
-  File.open("data/co-occurance-map.json","w") do |file|
+  File.open("data/co-occurrence-map.json","w") do |file|
     file.write(matrix)
   end
 end
