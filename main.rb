@@ -1,11 +1,13 @@
 require "awesome_print"
 require "csv"
 require "date"
+require "google/cloud/language"
 require "json/ext"
 require "rufus-scheduler"
 
 ENV["TZ"] = "America/Chicago"
 
+language_client  = Google::Cloud::Language.new(project: ENV["GOOGLE_CLOUD_PROJECT_ID"])
 scheduler = Rufus::Scheduler.new
 
 scheduler.every "5m" do
@@ -51,7 +53,7 @@ scheduler.every "5m" do
   mapped_nodes = nodes.map.with_index(0){|node, index|
     {
       name: node,
-      group: index
+      group: language_client.document(node).sentiment.score.round + 1
     }
   }
 
