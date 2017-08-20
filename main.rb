@@ -51,9 +51,18 @@ scheduler.every "5m" do
   }
 
   mapped_nodes = nodes.map{|node|
+    sentiment_score = language_client.document(node).sentiment.score
+    rounded_score = if sentiment_score <= -0.25
+      0
+    elsif sentiment_score >= 0.25
+      2
+    else
+      1
+    end
+
     {
       name: node,
-      group: language_client.document(node).sentiment.score.round + 1
+      group: rounded_score
     }
   }
 
