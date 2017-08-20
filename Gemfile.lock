@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    awesome_print (1.8.0)
+    et-orbi (1.0.5)
+      tzinfo
+    rufus-scheduler (3.4.2)
+      et-orbi (~> 1.0)
+    thread_safe (0.3.6)
+    tzinfo (1.2.3)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  awesome_print
+  rufus-scheduler
+
+BUNDLED WITH
+   1.14.6
