@@ -12,7 +12,7 @@ scheduler.every "5m" do
   nodes = []
   date_groups = {}
 
-  CSV.foreach("external-data/test.csv", headers: true) do |row|
+  CSV.foreach("external-data/responses.csv", headers: true) do |row|
     body = row["body"].downcase.strip
     date = unless row["date"] == nil
       Date.parse(row["date"]).strftime("%m/%d/%y")
