@@ -50,7 +50,7 @@ scheduler.every "5m" do
     v[:source] == v[:target]
   }
 
-  mapped_nodes = nodes.map.with_index(0){|node, index|
+  mapped_nodes = nodes.map{|node|
     {
       name: node,
       group: language_client.document(node).sentiment.score.round + 1
