@@ -10,7 +10,7 @@ ENV["TZ"] = "America/Chicago"
 language_client  = Google::Cloud::Language.new(project: ENV["GOOGLE_CLOUD_PROJECT_ID"])
 scheduler = Rufus::Scheduler.new
 
-scheduler.every "1m" do
+scheduler.every "1d" do
   nodes = []
   date_groups = {}
 
