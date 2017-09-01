@@ -25,6 +25,8 @@ scheduler.every "1d" do
     date_groups[date] << body
   end
 
+  nodes.uniq!
+
   combinations = date_groups.map{|key, value|
     value.product(value).map{|v|
       v.sort
