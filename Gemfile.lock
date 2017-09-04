@@ -3,9 +3,6 @@ GEM
   specs:
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    awesome_print (1.8.0)
-    et-orbi (1.0.5)
-      tzinfo
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     google-cloud-core (1.0.0)
@@ -48,24 +45,17 @@ GEM
     os (0.9.6)
     public_suffix (2.0.5)
     rly (0.2.3)
-    rufus-scheduler (3.4.2)
-      et-orbi (~> 1.0)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
-    thread_safe (0.3.6)
-    tzinfo (1.2.3)
-      thread_safe (~> 0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print
   google-cloud-language
-  rufus-scheduler
 
 BUNDLED WITH
    1.14.6
