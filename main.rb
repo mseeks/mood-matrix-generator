@@ -18,6 +18,8 @@ CSV.foreach("external-data/responses.csv", headers: true) do |row|
   date_groups[date] << body
 end
 
+nodes.uniq!
+
 combinations = date_groups.map{|key, value|
   value.product(value).map{|v|
     v.sort
