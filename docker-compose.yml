@@ -5,4 +5,3 @@ services:
     env_file: .env
     volumes:
       - ./data:/app/data
-      - ./external-data:/app/external-data

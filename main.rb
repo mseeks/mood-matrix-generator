@@ -1,21 +1,21 @@
-require "csv"
 require "date"
 require "google/cloud/language"
-require "json/ext"
+require "json"
+require "open-uri"
 
 language_client  = Google::Cloud::Language.new(project: ENV["GOOGLE_CLOUD_PROJECT_ID"])
 nodes = []
 date_groups = {}
 
-CSV.foreach("external-data/responses.csv", headers: true) do |row|
-  body = row["body"].downcase.strip
-  date = unless row["date"] == nil
-    Date.parse(row["date"]).strftime("%m/%d/%y")
+JSON.parse(open(ENV["MOOD_RESPONSES_ENDPOINT"]).read).each do |response|
+  body = response["body"].downcase.strip
+  created_at = unless response["created_at"] == nil
+    Date.parse(response["created_at"]).strftime("%m/%d/%y")
   end
 
   nodes << body
-  date_groups[date] = [] if date_groups[date] == nil
-  date_groups[date] << body
+  date_groups[created_at] = [] if date_groups[created_at] == nil
+  date_groups[created_at] << body
 end
 
 nodes.uniq!
