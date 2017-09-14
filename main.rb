@@ -56,7 +56,7 @@ mapped_links = combinations.map{|v|
 }
 
 matrix = {
-  nodes: mapped_nodes,
+  nodes: nodes,
   links: mapped_links
 }.to_json
 
