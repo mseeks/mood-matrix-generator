@@ -1,19 +1,29 @@
 require "date"
-require "google/cloud/language"
 require "json"
 require "open-uri"
 
-language_client  = Google::Cloud::Language.new(project: ENV["GOOGLE_CLOUD_PROJECT_ID"])
 nodes = []
 date_groups = {}
 
 JSON.parse(open(ENV["MOOD_RESPONSES_ENDPOINT"]).read).each do |response|
   body = response["body"].downcase.strip
+  sentiment = response["sentiment"]
+  rounded_score = if sentiment <= -0.25
+    0
+  elsif sentiment >= 0.25
+    2
+  else
+    1
+  end
+
   created_at = unless response["created_at"] == nil
     Date.parse(response["created_at"]).strftime("%m/%d/%y")
   end
 
-  nodes << body
+  nodes << {
+    name: body,
+    group: rounded_score
+  }
   date_groups[created_at] = [] if date_groups[created_at] == nil
   date_groups[created_at] << body
 end
@@ -43,22 +53,6 @@ mapped_links = combinations.map{|v|
   v
 }.uniq.reject{|v|
   v[:source] == v[:target]
-}
-
-mapped_nodes = nodes.map{|node|
-  sentiment_score = language_client.document(node).sentiment.score
-  rounded_score = if sentiment_score <= -0.25
-    0
-  elsif sentiment_score >= 0.25
-    2
-  else
-    1
-  end
-
-  {
-    name: node,
-    group: rounded_score
-  }
 }
 
 matrix = {
