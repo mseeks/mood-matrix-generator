@@ -30,6 +30,8 @@ end
 
 nodes.uniq!
 
+bodies = nodes.map{|node| node[:name] }
+
 combinations = date_groups.map{|key, value|
   value.product(value).map{|v|
     v.sort
@@ -37,8 +39,8 @@ combinations = date_groups.map{|key, value|
     c.empty?
   }.uniq.map{|v|
     {
-      source: nodes.index(v[0]),
-      target: nodes.index(v[1])
+      source: bodies.index(v[0]),
+      target: bodies.index(v[1])
     }
   }
 }.flatten.sort_by{|v|
